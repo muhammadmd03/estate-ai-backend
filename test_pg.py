@@ -7,5 +7,13 @@
 #     conn.commit()
 
 # print("Leads table dropped")
-from app.auth import hash_password
-print(hash_password("123456"))
+
+
+
+
+
+
+
+
+# from app.auth import hash_password
+# print(hash_password("123456"))
