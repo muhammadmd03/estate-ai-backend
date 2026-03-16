@@ -72,3 +72,19 @@ docx2txt
 
 sqlalchemy
 psycopg2-binary
+
+#for safety
+fastapi
+uvicorn
+python-dotenv
+sqlalchemy
+psycopg2-binary
+pandas
+langchain
+langchain-google-genai
+langchain-qdrant
+qdrant-client
+passlib[bcrypt]
+python-jose
+dateparser
+requests
