@@ -68,3 +68,7 @@ pypdf
 pymupdf
 python-docx
 docx2txt
+
+
+sqlalchemy
+psycopg2-binary
