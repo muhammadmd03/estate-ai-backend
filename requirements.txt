@@ -2,7 +2,7 @@
 # FastAPI Web Server
 # ===============================
 fastapi
-uvicorn[standard]
+uvicorn
 
 # ===============================
 # Environment Variables
