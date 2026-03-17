@@ -18,7 +18,8 @@ pydantic
 # Authentication
 # ===============================
 python-jose
-passlib[bcrypt]
+bcrypt==4.0.1
+passlib[bcrypt]==1.7.4
 
 # ===============================
 # HTTP Requests
@@ -84,7 +85,7 @@ langchain
 langchain-google-genai
 langchain-qdrant
 qdrant-client
-passlib[bcrypt]
+# passlib[bcrypt]
 python-jose
 dateparser
 requests
