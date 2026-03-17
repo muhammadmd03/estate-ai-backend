@@ -65,6 +65,11 @@ class LoginRequest(BaseModel):
 
 @app.post("/api/login")
 def login(data: LoginRequest):
+    # TEMP DEBUG — remove after fixing
+    print(f"Email received: '{data.email}'")
+    print(f"Password received: '{data.password}'")
+    print(f"Password length: {len(data.password)} chars / {len(data.password.encode('utf-8'))} bytes")
+    
 
     db = SessionLocal()
     try:
