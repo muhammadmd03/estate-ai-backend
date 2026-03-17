@@ -1,13 +1,14 @@
-FROM python:3.11
+FROM python:3.11-slim
 
 WORKDIR /app
 
 COPY requirements.txt .
-
 RUN pip install --no-cache-dir -r requirements.txt
+
+# ✅ Pre-download FastEmbed model during BUILD (not runtime)
+RUN python -c "from fastembed import TextEmbedding; TextEmbedding('models/gemini-embedding-001')"
 
 COPY . .
 
-ENV PORT=8080
-
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
+EXPOSE 8080
+CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8080}"]
