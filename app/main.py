@@ -32,6 +32,15 @@ from .database import load_csv_to_qdrant , validate_client_api
 # App Initialization
 # ---------------------------------
 
+
+import os 
+
+print("==== ENV DEBUG ====")
+print("DATABASE_URL:", os.getenv("DATABASE_URL"))
+print("GOOGLE_API_KEY:", os.getenv("GOOGLE_API_KEY"))
+print("QDRANT_API_KEY:", os.getenv("QDRANT_API_KEY"))
+print("===================")
+
 app = FastAPI(
     title="Real Estate AI Backend",
     description="Hybrid RAG + Gemini-powered real estate assistant",
