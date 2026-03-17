@@ -542,7 +542,7 @@ embeddings = GoogleGenerativeAIEmbeddings(
 )
 
 # Qdrant client
-sparse_embeddings = FastEmbedSparse(model_name="Qdrant/bm25")
+# sparse_embeddings = FastEmbedSparse(model_name="Qdrant/bm25")
 
 #-------------------
 # Vector store
