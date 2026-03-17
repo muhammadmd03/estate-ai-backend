@@ -54,7 +54,7 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_credentials=True,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -67,25 +67,40 @@ class LoginRequest(BaseModel):
 def login(data: LoginRequest):
 
     db = SessionLocal()
+    try:
+        user = db.query(User).filter(User.email == data.email).first()
 
-    user = db.query(User).filter(User.email == data.email).first()
+        if not user:
+            raise HTTPException(status_code=401, detail="Invalid credentials")
 
-    db.close()
-    print("Input password:", data.password)
-    print("Stored hash:", user.password_hash)
+        if not verify_password(data.password, user.password_hash):
+            raise HTTPException(status_code=401, detail="Invalid credentials")
 
-    if not user:
-        raise HTTPException(status_code=401, detail="Invalid credentials")
+        token = create_access_token({
+            "sub": str(user.id),
+            "client_id": user.client_id
+        })
+        return {"access_token": token}
+    finally:
+        db.close()
+    # user = db.query(User).filter(User.email == data.email).first()
 
-    if not verify_password(data.password, user.password_hash):
-        raise HTTPException(status_code=401, detail="Invalid credentials")
+    # db.close()
+    # print("Input password:", data.password)
+    # print("Stored hash:", user.password_hash)
 
-    token = create_access_token({
-        "sub": str(user.id),
-        "client_id": user.client_id
-    })
+    # if not user:
+    #     raise HTTPException(status_code=401, detail="Invalid credentials")
 
-    return {"access_token": token}
+    # if not verify_password(data.password, user.password_hash):
+    #     raise HTTPException(status_code=401, detail="Invalid credentials")
+
+    # token = create_access_token({
+    #     "sub": str(user.id),
+    #     "client_id": user.client_id
+    # })
+
+    # return {"access_token": token}
 
 
 #Protect /api/leads
@@ -365,6 +380,6 @@ def create_client(client_id: str, agency_name: str):
 
 import uvicorn
 
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8080))
-    uvicorn.run("app.main:app", host="0.0.0.0", port=port)
+# if __name__ == "__main__":
+#     port = int(os.environ.get("PORT", 8080))
+#     uvicorn.run("app.main:app", host="0.0.0.0", port=port)
