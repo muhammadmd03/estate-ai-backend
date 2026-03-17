@@ -361,3 +361,10 @@ def create_client(client_id: str, agency_name: str):
         "client_id": client_id,
         "api_key": api_key
     }
+
+
+import uvicorn
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8080))
+    uvicorn.run("app.main:app", host="0.0.0.0", port=port)
