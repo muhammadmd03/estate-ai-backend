@@ -88,3 +88,4 @@ passlib[bcrypt]
 python-jose
 dateparser
 requests
+docutils
